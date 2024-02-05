@@ -1,3 +1,4 @@
+$fn=30
 size = 10;
 x = size * 1.001;
 b = size * 0.04;
@@ -44,7 +45,7 @@ module tube(v1,v2) {
     theta = atan2(y3, x3);
     phi = acos(z3 / rho);
     translate(v1)
-    rotate([phi,0,theta+90]) cylinder(rho,b,b,$fn=30);
+    rotate([phi,0,theta+90]) cylinder(rho,b,b);
     translate(v1) sphere(b);
     translate(v2) sphere(b);
 }
@@ -52,7 +53,7 @@ module tube(v1,v2) {
 
 
 module octahedron(x,y,z) {
-    translate([size*x/2,size*y/2,size*z/2]) 
+    translate([size*x/2,size*y/2,size*z/2])
     polyhedron(points=oPts, faces=octFaces);
 }
 
@@ -76,7 +77,8 @@ module octahedronSkeleton(x,y,z) {
     }
 }
 
-module bezeledOctahedron(x,y,z) {
+module beveledOctahedron(x,y,z) {
+    color("red")
     difference() {
         octahedron(x,y,z);
         octahedronSkeleton(x,y,z);
@@ -121,30 +123,47 @@ module RTetrahedronSkeleton(x, y, z) {
     }
 }
 
-module bezeledLTetrahedron(x,y,z) {
+module beveledLTetrahedron(x,y,z) {
     difference() {
         LTetrahedron(x,y,z);
         LTetrahedronSkeleton(x,y,z);
     }
 }
 
-module bezeledRTetrahedron(x,y,z) {
+module beveledRTetrahedron(x,y,z) {
     difference() {
         RTetrahedron(x,y,z);
         RTetrahedronSkeleton(x,y,z);
     }
 }
 
-//bezeledOctahedron(0,0,0); bezeledOctahedron(0,2,2); bezeledOctahedron(2,0,2); bezeledRTetrahedron(1,1,1); // 1
-//bezeledOctahedron(0,0,0); bezeledOctahedron(0,2,2); bezeledRTetrahedron(1,1,1); bezeledRTetrahedron(1,3,3); // 2
-//bezeledOctahedron(0,0,0); bezeledOctahedron(0,2,2); bezeledRTetrahedron(1,1,1); bezeledLTetrahedron(1,1,3); // 3
-// bezeledOctahedron(0,0,2); bezeledOctahedron(2,2,2); bezeledRTetrahedron(1,1,3); bezeledRTetrahedron(1,3,1); // 4
-//bezeledOctahedron(0,0,2); bezeledOctahedron(2,2,2); bezeledRTetrahedron(1,1,3); bezeledLTetrahedron(1,1,1); // 5
-//bezeledOctahedron(0,0,2); bezeledOctahedron(2,2,2); bezeledRTetrahedron(1,1,3); bezeledLTetrahedron(3,3,1); // 6
-//bezeledOctahedron(0,2,2); bezeledRTetrahedron(1,1,1); bezeledRTetrahedron(1,3,3); bezeledLTetrahedron(1,1,3); // 7
-//bezeledOctahedron(2,2,2); bezeledRTetrahedron(1,1,3); bezeledRTetrahedron(1,3,1); bezeledRTetrahedron(3,1,1); // 8
-bezeledOctahedron(2,2,2); bezeledRTetrahedron(1,1,3); bezeledRTetrahedron(1,3,1); bezeledLTetrahedron(3,1,3); // 9
+// Beveled
+//beveledOctahedron(0,0,0); beveledOctahedron(0,2,2); beveledOctahedron(2,0,2); beveledRTetrahedron(1,1,1); // 1
+//beveledOctahedron(0,0,0); beveledOctahedron(0,2,2); beveledRTetrahedron(1,1,1); beveledRTetrahedron(1,3,3); // 2
+//beveledOctahedron(0,0,0); beveledOctahedron(0,2,2); beveledRTetrahedron(1,1,1); beveledLTetrahedron(1,1,3); // 3
+// beveledOctahedron(0,0,2); beveledOctahedron(2,2,2); beveledRTetrahedron(1,1,3); beveledRTetrahedron(1,3,1); // 4
+//beveledOctahedron(0,0,2); beveledOctahedron(2,2,2); beveledRTetrahedron(1,1,3); beveledLTetrahedron(1,1,1); // 5
+//beveledOctahedron(0,0,2); beveledOctahedron(2,2,2); beveledRTetrahedron(1,1,3); beveledLTetrahedron(3,3,1); // 6
+//beveledOctahedron(0,2,2); beveledRTetrahedron(1,1,1); beveledRTetrahedron(1,3,3); beveledLTetrahedron(1,1,3); // 7
+//beveledOctahedron(2,2,2); beveledRTetrahedron(1,1,3); beveledRTetrahedron(1,3,1); beveledRTetrahedron(3,1,1); // 8
+beveledOctahedron(2,2,2); beveledRTetrahedron(1,1,3); beveledRTetrahedron(1,3,1); beveledLTetrahedron(3,1,3); // 9
 
 
-//mirror([1,0,0]) {bezeledOctahedron(0,0,0); bezeledOctahedron(0,2,2); bezeledRTetrahedron(1,1,1); bezeledLTetrahedron(1,1,3);} // 3 flipped
-//mirror([1,0,0]) {bezeledOctahedron(0,0,2); bezeledOctahedron(2,2,2); bezeledRTetrahedron(1,1,3); bezeledRTetrahedron(1,3,1);} // 4 flipped
+//mirror([1,0,0]) {beveledOctahedron(0,0,0); beveledOctahedron(0,2,2); beveledRTetrahedron(1,1,1); beveledLTetrahedron(1,1,3);} // 3 flipped
+//mirror([1,0,0]) {beveledOctahedron(0,0,2); beveledOctahedron(2,2,2); beveledRTetrahedron(1,1,3); beveledRTetrahedron(1,3,1);} // 4 flipped
+
+
+// Skeleton
+//octahedronSkeleton(0,0,0); octahedronSkeleton(0,2,2); octahedronSkeleton(2,0,2); RTetrahedronSkeleton(1,1,1); // 1
+//octahedronSkeleton(0,0,0); octahedronSkeleton(0,2,2); RTetrahedronSkeleton(1,1,1); RTetrahedronSkeleton(1,3,3); // 2
+//octahedronSkeleton(0,0,0); octahedronSkeleton(0,2,2); RTetrahedronSkeleton(1,1,1); LTetrahedronSkeleton(1,1,3); // 3
+// octahedronSkeleton(0,0,2); octahedronSkeleton(2,2,2); RTetrahedronSkeleton(1,1,3); RTetrahedronSkeleton(1,3,1); // 4
+//octahedronSkeleton(0,0,2); octahedronSkeleton(2,2,2); RTetrahedronSkeleton(1,1,3); LTetrahedronSkeleton(1,1,1); // 5
+//octahedronSkeleton(0,0,2); octahedronSkeleton(2,2,2); RTetrahedronSkeleton(1,1,3); LTetrahedronSkeleton(3,3,1); // 6
+//octahedronSkeleton(0,2,2); RTetrahedronSkeleton(1,1,1); RTetrahedronSkeleton(1,3,3); LTetrahedronSkeleton(1,1,3); // 7
+//octahedronSkeleton(2,2,2); RTetrahedronSkeleton(1,1,3); RTetrahedronSkeleton(1,3,1); RTetrahedronSkeleton(3,1,1); // 8
+//octahedronSkeleton(2,2,2); RTetrahedronSkeleton(1,1,3); RTetrahedronSkeleton(1,3,1); LTetrahedronSkeleton(3,1,3); // 9
+
+
+//mirror([1,0,0]) {octahedronSkeleton(0,0,0); octahedronSkeleton(0,2,2); RTetrahedronSkeleton(1,1,1); LTetrahedronSkeleton(1,1,3);} // 3 flipped
+//mirror([1,0,0]) {octahedronSkeleton(0,0,2); octahedronSkeleton(2,2,2); RTetrahedronSkeleton(1,1,3); RTetrahedronSkeleton(1,3,1);} // 4 flipped
