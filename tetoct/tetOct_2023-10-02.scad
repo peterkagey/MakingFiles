@@ -1,4 +1,4 @@
-$fn=30
+$fn=30;
 size = 10;
 x = size * 1.001;
 b = size * 0.04;
@@ -124,6 +124,7 @@ module RTetrahedronSkeleton(x, y, z) {
 }
 
 module beveledLTetrahedron(x,y,z) {
+    color("blue")
     difference() {
         LTetrahedron(x,y,z);
         LTetrahedronSkeleton(x,y,z);
@@ -131,6 +132,7 @@ module beveledLTetrahedron(x,y,z) {
 }
 
 module beveledRTetrahedron(x,y,z) {
+    color("blue")
     difference() {
         RTetrahedron(x,y,z);
         RTetrahedronSkeleton(x,y,z);
